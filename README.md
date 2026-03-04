@@ -1,59 +1,166 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+📘 BLUEPRINT PROJECT
+Smart Allocation & Money Flow Web App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Project ini adalah sebuah web app keuangan berbasis Laravel yang berfokus pada sistem pembagian dan pengelolaan aliran uang secara terstruktur, bukan sekadar pencatatan transaksi. Aplikasi ini ditujukan untuk individu yang memiliki penghasilan—baik tetap seperti karyawan maupun tidak tetap seperti freelancer atau pedagang—yang ingin memiliki sistem sederhana namun disiplin dalam mengatur uangnya.
 
-## About Laravel
+Inti dari aplikasi ini adalah konsep Income as Event dan Allocation as System. Setiap pemasukan dicatat sebagai sebuah event dengan tanggal nyata, bukan sebagai “gaji bulanan tetap”. Artinya, user dapat mencatat pemasukan kapan pun mereka menerima uang, bahkan lebih dari sekali dalam satu bulan. Sistem kemudian membaca data tersebut dan memungkinkan visualisasi baik secara detail per tanggal maupun secara agregasi per bulan.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+🔐 Sistem Akses & Struktur Dasar
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Aplikasi menggunakan sistem login per user. Tidak ada admin pada versi awal, karena fokus aplikasi adalah personal financial system, bukan platform publik atau SaaS. Setiap user memiliki data, aturan alokasi, dan fund (dompet virtual) masing-masing.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Setelah login, user langsung masuk ke Dashboard sebagai pusat kontrol utama.
 
-## Learning Laravel
+🏠 Dashboard (Home System)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Dashboard berfungsi sebagai ringkasan kondisi keuangan user saat ini. Di dalamnya terdapat:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Ringkasan total income terbaru
 
-## Laravel Sponsors
+Total saldo seluruh fund
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Card atau section fund yang dibuat user
 
-### Premium Partners
+Riwayat transaksi terbaru
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Grafik income dengan dua mode tampilan (Daily & Monthly)
 
-## Contributing
+Tombol “+ Pemasukan Baru”
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Dashboard bukan tempat untuk mengatur sistem, melainkan tempat melihat hasil sistem bekerja.
 
-## Code of Conduct
+💰 Income Module (Event-Based Income)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Income dicatat sebagai event dengan tanggal aktual. User dapat mencatat pemasukan kapan saja, tanpa batasan bulanan.
 
-## Security Vulnerabilities
+Saat user menambahkan pemasukan, terdapat opsi:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Mode Real (default): pemasukan diproses dan memengaruhi saldo fund
 
-## License
+Mode Simulation: pemasukan hanya dihitung untuk melihat hasil alokasi tanpa mengubah saldo atau histori fund
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Mode Simulation berfungsi sebagai kalkulator perencanaan keuangan dan tidak mengganggu data asli.
+
+⚙️ Allocation System (Aturan Tetap)
+
+Allocation bukan bagian dari transaksi, melainkan rule system yang berdiri sendiri. User mengatur persentase pembagian dana di menu khusus Allocation Settings.
+
+Contoh:
+
+50% Kebutuhan
+
+20% Tabungan
+
+20% Investasi
+
+10% Hiburan
+
+Aturan ini berlaku otomatis setiap kali income (mode real) diproses. Allocation tidak diatur ulang setiap kali input income; ia hanya diubah jika user masuk ke halaman pengaturan.
+
+🧱 Virtual Fund System (Dompet Digital Internal)
+
+Setiap kategori alokasi atau fund buatan user akan muncul sebagai card/section di dashboard. Fund bersifat fleksibel dan dapat dibuat, diubah, atau dihapus oleh user.
+
+Contoh fund:
+
+Tabungan Motor
+
+Dana Darurat
+
+Investasi Saham
+
+Liburan
+
+Fund memiliki:
+
+Saldo aktif
+
+Riwayat transaksi
+
+Penerimaan dana dari auto allocation
+
+Input manual (tambah/kurangi saldo)
+
+Fund adalah tempat uang “tinggal” secara sistem virtual.
+
+🔁 Auto Allocation Engine
+
+Ketika income dalam mode real diproses, sistem:
+
+Mengambil allocation rule aktif
+
+Menghitung nominal berdasarkan persentase
+
+Menyalurkan nominal ke fund yang sesuai
+
+Mencatat history di masing-masing fund
+
+Menampilkan ringkasan hasil pembagian (success modal)
+
+Jika mode simulation dipilih, sistem hanya menghitung dan menampilkan hasil tanpa mengubah fund.
+
+📜 Fund History & Transparency
+
+Setiap fund memiliki histori transaksi yang mencatat:
+
+Tanggal
+
+Sumber (Income tertentu / Manual adjustment)
+
+Nominal
+
+Tipe (auto allocation / manual)
+
+Catatan opsional
+
+Hal ini memastikan transparansi dan audit personal bagi user.
+
+📊 Grafik & Visualisasi
+
+Dashboard memiliki grafik income dengan dua mode:
+
+Daily View → menampilkan titik sesuai tanggal setiap pemasukan
+
+Monthly View → menampilkan total income per bulan
+
+Data disimpan berbasis tanggal aktual sehingga grafik dapat fleksibel tanpa mengubah struktur data.
+
+Grafik bersifat dinamis dan akan langsung diperbarui setelah income diproses.
+
+🧠 Filosofi Sistem
+
+Aplikasi ini bukan sekadar expense tracker. Fokus utamanya adalah:
+
+Membagi uang sejak awal
+
+Memberi tujuan pada setiap pemasukan
+
+Menciptakan disiplin finansial otomatis
+
+Mengurangi beban berpikir user
+
+Sistem dirancang untuk meminimalkan kompleksitas dan decision fatigue, dengan default behavior yang pintar dan otomatis, namun tetap menyediakan fleksibilitas melalui mode simulasi dan fund custom.
+
+🎯 Visi Versi Awal (V1)
+
+Versi pertama hanya mencakup:
+
+Login system
+
+Income event-based
+
+Allocation setting
+
+Auto allocation engine
+
+Virtual fund system
+
+Fund history
+
+Dashboard + grafik 2 mode
+
+Simulation mode
+
+Tidak ada admin, tidak ada fitur sosial, tidak ada kompleksitas bisnis.
+
+Fokus: sistem stabil, bersih, dan benar-benar membantu user mengatur aliran uangnya.
