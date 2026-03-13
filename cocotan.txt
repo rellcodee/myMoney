@@ -1,0 +1,26 @@
+Allocation Profile = Yang user set, misalnya 40% Tabungan, 30% Investasi, 30% Kebutuhan.
+Allocation Rule = Setiap baris di dalam profile. misalnya Tabungan → 40%. ya satuan dari Allocation Profile.
+Income Event = Saat user input pemasukan.
+Allocation Engine = Fitur utama lu yang jalan otomatis saat income masuk.
+Fund = Yang user bikin sebagai dompet. (bagian uang Tabungan).
+Fund Transaction = 
+-Saat fund berubah saldo.
+-Bisa karena:
+-Manual add ,Manual subtract ,Auto allocation, Transfer antar fund (nanti bisa)
+
+gua setuju sama Allocation berlaku pada saat Income Event diproses.
+Bukan berlaku secara retroaktif. dan Kita bikin Allocation Profile itu versioned.
+
+
+🧠 PRINCIPLE BESAR DESAIN DB
+
+Kita bikin 3 layer finansial:
+
+Account Layer → tempat uang disimpan (Fund)
+
+Event Layer → kejadian uang masuk / keluar
+
+Movement Layer → pergerakan uang antar account
+
+Kalau struktur ini benar,
+income, expense, saving target, transfer — semua bisa masuk.
