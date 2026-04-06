@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use App\Models\FinancialEvent;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $userId = 2;
+        $userId = auth()->id();
 
         // total balance semua account
         $totalBalance = Account::where('user_id', $userId)
@@ -42,4 +43,21 @@ class DashboardController extends Controller
             'recent_events' => $recentEvents
         ]);
     }
+    public function boot(Request $request)
+{
+    $user = $request->user();
+    
+    $accounts = Account::where('user_id', $user->id)
+        ->where('is_active', true)
+        ->get()
+        ->fresh();
+
+    $total = $accounts->sum('balance');
+
+    return response()->json([
+        'user' => $user,
+        'accounts' => $accounts,
+        'total_balance' => $total
+    ]);
+}
 }

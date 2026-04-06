@@ -26,4 +26,9 @@ class AllocationProfile extends Model
     {
         return $this->hasMany(AllocationRule::class);
     }
+   
+    public function allocations()
+    {
+        return $this->hasMany(Allocation::class);
+    }
 }

@@ -12,7 +12,9 @@ class Account extends Model
         'name',
         'type',
         'balance',
-        'is_active'
+        'is_active',
+        'target_amount',
+        'target_date'
     ];
 
     protected $casts = [

@@ -19,7 +19,13 @@ class IncomeService
                 ->first();
 
             if (!$wallet) {
-                throw new \Exception("Wallet not found");
+                $wallet = Account::create([
+                    'user_id' => $userId,
+                    'name' => 'Wallet',
+                    'type' => 'wallet',
+                    'balance' => 0,
+                    'is_active' => true
+                ]);
             }
             if ($amount <= 0) {
                 throw new \Exception("Amount must be positive");

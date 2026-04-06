@@ -16,7 +16,7 @@ class TransferController extends Controller {
        ]);
 
        $service->createTransfer(
-        2,
+        $request->user()->id,
         $request->from_account_id,
         $request->to_account_id,
         $request->amount,

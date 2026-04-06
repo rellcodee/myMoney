@@ -27,4 +27,9 @@ class AllocationRule extends Model
     {
         return $this->belongsTo(Account::class, 'target_account_id');
     }
+    public function account()
+    {
+        return $this->belongsTo(Account::class, 'target_account_id');
+    }
+
 }

@@ -9,7 +9,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = FinancialEvent::where('user_id', 2)
+        $events = FinancialEvent::where('user_id', auth()->id())
             ->orderBy('event_date', 'desc')
             ->get();
 

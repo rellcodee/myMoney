@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\IncomeService;
-
+use App\Models\FinancialEvent;
 class IncomeController extends Controller
 {
     public function store(Request $request, IncomeService $incomeService)
@@ -15,11 +15,14 @@ class IncomeController extends Controller
         ]);
 
         $incomeService->createIncome(
-            2,
+            $request->user()->id,
             $request->amount,
             $request->note
         );
 
-        return back()->with('success', 'Income added');
+        return response()->json([
+            'message' => 'Income added'
+        ]);
     }
+
 }
